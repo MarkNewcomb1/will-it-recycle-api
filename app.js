@@ -31,17 +31,25 @@ app.get('/', (request, response) => {
 
 
 app.get("/:item", function (request, response) {
-    var record = findByItem(data, request.params.item);
-    if (!record){
-        // response.status = 404;
-        response.status(404).send({
-            error: {
-                message: "No record found!"
-            }
-        })
-    } else {
-        response.json({data: record});
+    // var record = findByItem(data, request.params.item);
+    var results = [];
+    for (var i = 0; i < data.length; i++) {
+        if (data[i].item.includes(request.params.item)) {
+            results.push(data[i]);
+        }
     }
+    response.json({results});
+
+    // if (!record){
+    //     // response.status = 404;
+    //     response.status(404).send({
+    //         error: {
+    //             message: "No record found!"
+    //         }
+    //     })
+    // } else {
+    //     response.json({data: record});
+    // }
 });
 
 
